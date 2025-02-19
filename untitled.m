@@ -368,13 +368,7 @@ subplot(2,2,3)
 plot(t,S20)
 subplot(2,2,4)
 
-function S_n = approximerapuls(t,n) 
-S_n = zeros(size(t))
-for i = 1:n
-    term =  (2 / (i * pi)) * (1 - (-1)^i) * sin(i * t);
-    S_n = S_n + term;
-end
-end 
+
 function y = rektangelpuls(x)
 if x > 1 | x <= 0
     y = 0;
@@ -383,3 +377,26 @@ else
 end
 disp(y)
 end
+%%
+clear
+f = @(x) 1./(1+2*x.^2);
+x = linspace(0,pi,100);
+y = f(x);
+plot(x,y,'b-')
+xlabel('x');
+ylabel("f(x)");
+title("Plot of f(x) = 1 / (1+ 2x^2)");
+grid on;
+integral = stapelarea(f,0,pi,100);
+n = 10;
+I10 = stapelarea(f,0,pi,n);
+I = atan(sqrt(2)*pi)/sqrt(2);
+DI = abs(I-I10);
+DI_n = DI;
+while DI_n >= 1e-5
+    n = n + 1;
+    I_n = stapelarea(f,0,pi,n);
+    DI_n = abs(I - I_n);
+end
+disp(DI_n)
+disp(n)
