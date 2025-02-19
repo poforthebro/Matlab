@@ -13,33 +13,48 @@ C = [1 0; 0.6 1];
 X_A = A*X;
 X_B = B*X;
 X_C = C*X;
-%Förändrade figurer
-
-plot(X(1,:), X(2,:),'LineWidth', 2, 'DisplayName', 'Originala Figuren');
-grid on
-axis ("equal")
-hold on 
-xlim([-10 10])
-ylim([-10 10])
-plot(X_A(1,:), X_A(2,:), 'b--', 'LineWidth', 2, 'DisplayName', 'Projektion (A)');
-plot(X_B(1,:), X_B(2,:), 'r-', 'LineWidth', 2, 'DisplayName', 'Skalning (B)');
-plot(X_C(1,:), X_C(2,:), 'g-', 'LineWidth', 2, 'DisplayName', 'Skjuvningen (C)');
-% Ut Plottning för alla förändrade figurer
-
-hold on
-
 k = 1;
 m = 0;
 x = 0:0.1:15;
 y = k * x + m;
 % Y = KX + M
 
+
+%Förändrade figurer
+
+grid on
+axis ("equal")
+figure(1)
+plot(X_A(1,:), X_A(2,:), 'b--', 'LineWidth', 2, 'DisplayName', 'Projektion (A)');
+hold on
+plot(X(1,:), X(2,:),'LineWidth', 2, 'DisplayName', 'Originala Figuren');
 plot(x, y, 'm:', 'LineWidth', 1, 'DisplayName', 'Line: y = x');
+grid on
+title('Projektion på linje');
+xlim([-1 20])
+ylim([-1 20])
+legend('show', 'Location', 'best');
+figure(2)
+plot(X_B(1,:), X_B(2,:), 'r-', 'LineWidth', 2, 'DisplayName', 'Skalning (B)');
+grid on
+xlim([-1 20])
+ylim([-1 20])
+title('Skalning');
+legend('show', 'Location', 'best');
+figure(3)
+plot(X_C(1,:), X_C(2,:), 'g-', 'LineWidth', 2, 'DisplayName', 'Skjuvningen (C)');
+% Ut Plottning för alla förändrade figurer
+
+
+
+xlim([-1 20])
+ylim([-1 20])
 grid on;
 xlabel('x');
 ylabel('y');
-title('Olika Avbildningar');
-axis equal;
+title('Skjuvning');
+
+
 
 legend('show', 'Location', 'best');
 hold off

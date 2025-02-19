@@ -103,8 +103,8 @@ plot([0, FCz(1)], [0, FCz(2)], 'black--', 'LineWidth', 2, 'DisplayName', 'Skjuva
 grid on
 xlabel('x');
 ylabel('y');
-xlim([-6 10])
-ylim([-6 10])
+xlim([-7 8])
+ylim([-7 8])
 title("Egenvärde med Skjuvning")
 text(u(1), u(2), '  Original u', 'Color', 'b');
 text(FCu(1), FCu(2), '  Skjuvad u', 'Color', 'b');
