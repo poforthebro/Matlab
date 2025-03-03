@@ -1,40 +1,62 @@
 clear
-k = 400;
+k = 200;
 t = linspace(0,pi,k);
 x = sin(t).*cos(8*t);
 y = sin(t).*sin(8*t);
 z = cos(t) + 2;
 X = [x;y;z];
+% Definerar en figur i 3D
+
+
 plot3(X(1,:),X(2,:),X(3,:),"-x")
+hold on
 grid on
 axis equal
-hold on
+%Plottar originala figuren, inställningar
 drawCAxis()
+%Gör Koordinater
+
 P0 = [0,0,0]';
 n = [0.2 0.8 1.4]';
-drawArrow3(P0,n)
-v = deg2rad(225);
 L = n*(-2:3)
+drawArrow3(P0,n)
+% Gör en punkt och sen peka den mot normalen ,gångra den med defnitioner
+% för -2:3 och bildar en linje för normalen
+
+
+v = deg2rad(225);
+
 P = Matrixproj3(n) * X;
+% Projektionens Matris
 R1 = matrixRot3(n,v) * X;
-PR2 = matrixRot3(n,v) *  Matrixproj3(n)* X;
+% Rotationens Matris
+PR2 = Matrixproj3(n)* matrixRot3(n,v)* X;
+%Först Projektion, sen Rotation
 drawPlane(n)
+% Planen 
+
 
 plot3(L(1,:),L(2,:),L(3,:))
 plot3(P(1,:),P(2,:),P(3,:))
 plot3(R1(1,:),R1(2,:),R1(3,:))
 plot3(PR2(1,:),PR2(2,:),PR2(3,:))
-
-
+%Alla Plottar i 3D
+xlabel('x')
+ylabel('y')
+zlabel('z')
+title('projektion och rotation')
+legend('original', 'X', 'Y', 'Z', 'normalvektor', 'plan', 'normal', 'projektion på orginal', 'rotation', 'projektion på rotation')
+ 
 
 %%
+%{
 v = deg2rad(225)
 B = matrixRot3(n,v)
 Z = B*X;
 plot3(Z(1,:),Z(2,:),Z(3,:))
 hold on 
 plot3(X(1,:),X(2,:),X(3,:))
-
+%}
 function drawCAxis()
 % Draw arrows for the 3D coordinate axis. 
 % Try: 
