@@ -26,26 +26,26 @@ drawArrow3(P0,n)
 
 v = deg2rad(225);
 
-P = Matrixproj3(n) * X;
+%P = Matrixproj3(n) * X;
 % Projektionens Matris
 R1 = matrixRot3(n,v) * X;
 % Rotationens Matris
-PR2 = Matrixproj3(n)* matrixRot3(n,v)* X;
+%PR2 = Matrixproj3(n)* matrixRot3(n,v)* X;
 %Först Projektion, sen Rotation
 drawPlane(n)
 % Planen 
 
 
 plot3(L(1,:),L(2,:),L(3,:))
-plot3(P(1,:),P(2,:),P(3,:))
+%plot3(P(1,:),P(2,:),P(3,:))
 plot3(R1(1,:),R1(2,:),R1(3,:))
-plot3(PR2(1,:),PR2(2,:),PR2(3,:))
+%plot3(PR2(1,:),PR2(2,:),PR2(3,:))
 %Alla Plottar i 3D
 xlabel('x')
 ylabel('y')
 zlabel('z')
 title('projektion och rotation')
-legend('original', 'X', 'Y', 'Z', 'normalvektor', 'plan', 'normal', 'projektion på orginal', 'rotation', 'projektion på rotation')
+legend('original', 'X', 'Y', 'Z', 'normalvektor', 'plan', 'normal', 'rotation', 'rotation', 'projektion på rotation')
  
 
 %%
