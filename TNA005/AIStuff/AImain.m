@@ -1,20 +1,57 @@
-clear
-load uspsDigits
-A = testDigits(:,:,1);
+clear;
+load uspsDigits;
+%variabler
+k = 20;
 
-X_train = reshape(trainDigits,256,7291);
-y_train = trainAns;
-%X_y_comb =  
+X_train = reshape(trainDigits, 256,7291);
+x_trainAns = trainAns;
+Y_test = reshape(testDigits, 256, 2007);
+y_testAns = testAns;
 
-X_test = reshape(testDigits,256,2007);
-y_test = testAns;
+%enstaka testning
 
-y_test_1 = y_test()
-k = 1;
+%{
+predicted_label = kNN(testing_number,X_train,x_trainAns,Y_test,k)
+true_label = y_testAns(testing_number);
+if predicted_label == true_label
+fprintf('Correct! It is a: %d\n', true_label);
+else
+fprintf('Incorrect! It is a: %d\n', true_label);
+end
+%}
+
+% tomma vectorer för räkning
+correct_counts = zeros(1, 10);
+total_counts = zeros(1, 10);
+
+centroids = traincentroids(X_train, x_trainAns);
+centroids_correct = reshape(centroids,16,16,[]);
+centroids_correct_1 = centroids_correct(:,:,1);
+figure(1);
+ima(centroids_correct_1)
+hold on;
 
 
+for i = 1:size(Y_test, 2) %storleken
+    predicted_label = centroidcreate(i,Y_test,centroids);%prediktionen,använder sig av functionen
+    true_label = y_testAns(i);% riktiga svar
+    total_counts(true_label + 1) = total_counts(true_label + 1) + 1; %Räkna upp för totala för specifika siffran
+    if predicted_label == true_label %checken om den är korrekt
+        correct_counts(true_label + 1) = correct_counts(true_label + 1) + 1; %räknaren för totala
+    end
+end
+%display och acc statistik. 
+acc = (correct_counts ./ total_counts) * 100;
+for digit = 0:9
+    fprintf('Digit %d: Correct %d / %d (%.2f%%)\n', digit, correct_counts(digit + 1), total_counts(digit + 1), acc(digit + 1));
+end
+% magi.
+figure(2);
+bar(0:9, acc);
+xlabel('Digit');
+ylabel('Accuracy (%)');
+title(sprintf('kNN statistik (k = %d)', k));
+grid on;
+hold off;
 %%
-
-y_pred = predict(knn_model, X_test);
-accuracy = sum(y_pred == y_test) / length(y_test) * 100;
-fprintf('Accuracy: %.2f%%\n', accuracy);
+ind0 = trainAns == 0;
