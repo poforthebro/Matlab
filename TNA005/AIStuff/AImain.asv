@@ -1,7 +1,7 @@
 clear;
 load uspsDigits;
 %variabler
-k = 2;
+k = 20;
 
 X_train = reshape(trainDigits, 256,7291);
 x_trainAns = trainAns;
