@@ -1,0 +1,73 @@
+clear
+load BrakingDataSet
+figure(1);
+plot(X_test,Y_test)
+xlabel('Fart')
+ylabel('Bromsträcka') 
+hold on
+figure(2);
+plot(X_train,Y_train)
+xlabel('Fart')
+ylabel('Bromsträcka') 
+% är mätningarna rimliga?
+%%
+%först konstruera tränings data i X och y train
+clear
+load BrakingDataSet
+% X variabeln
+X = [ones(size(X_train)),X_train];
+% theta skapning, utlöser en function
+theta = X\Y_train;
+% Väljer specifika theta
+theta_1 = theta(1);
+theta_2 = theta(2);
+
+% x input
+x = linspace(0,30,200);
+% y funktionen
+y_pred = theta_1 + theta_2 * x;
+% plot 
+plot(x,y_pred)
+hold on;
+plot(X_train,Y_train,'+')
+plot(X_test,Y_test,'x')
+hold off;
+
+
+residuals = Y_train - y_pred;
+SS_res = sum(residuals.^2);
+SS_tot = sum((Y_train - mean(Y_train)).^2);
+R_squared = 1 - (SS_res / SS_tot);
+fprintf('R-squared = %.4f\n', R_squared);
+%rmse_training = sqrt(mean((Y_train - y_pred).^2));
+rmse_test = rmse(y_pred,Y_train);
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%
+scatter(x_data, y_data, 'b', 'filled');
+hold on;
+
+% Plot the regression line
+x_range = linspace(min(x_data), max(x_data), 100);
+y_range = theta0_hat + theta1_hat * x_range;
+plot(x_range, y_range, 'r-', 'LineWidth', 2);
+
+% Add labels and legend
+xlabel('x');
+ylabel('y');
+title('Linear Regression Fit');
+legend('Data Points', 'Regression Line', 'Location', 'best');
+grid on;
+hold off;
+
