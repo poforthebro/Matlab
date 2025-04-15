@@ -1,7 +1,7 @@
 clear;
 load uspsDigits;
 %variabler
-k = 2;
+k = 1;
 
 X_train = reshape(trainDigits, 256,7291);
 x_trainAns = trainAns;
@@ -45,11 +45,16 @@ for i = 1:size(Y_test, 2) %storleken
         correct_counts(true_label + 1) = correct_counts(true_label + 1) + 1; %räknaren för totala
     end
 end
+total_correct = sum(correct_counts);
+total_samples = sum(total_counts);
+total_accuracy = (total_correct / total_samples) * 100;
+
 %display och acc statistik. 
 acc = (correct_counts ./ total_counts) * 100;
 for digit = 0:9
     fprintf('Digit %d: Correct %d / %d (%.2f%%)\n', digit, correct_counts(digit + 1), total_counts(digit + 1), acc(digit + 1));
 end
+fprintf('\nTotal: Correct %d / %d (%.2f%%)\n', total_correct, total_samples, total_accuracy);
 % magi.
 figure(2);
 bar(0:9, acc);

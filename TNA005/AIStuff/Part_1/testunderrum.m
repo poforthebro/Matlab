@@ -1,7 +1,7 @@
 function predicted_label = testunderrum(testing_number,Y_test,B) % d för dimension
     y = Y_test(:, testing_number);
     num_classes = size(B,3);
-    distances = zeros(1,num_classes)
+    distances = zeros(1,num_classes);
     for i = 1:num_classes
         Bj = B(:,:,i); %väljer siffran för användning från B stora vektorn, typ 2:a form eller 5:a form
         y_proj = Bj * (Bj' * y); % projektions formel för y på Bj siffran
